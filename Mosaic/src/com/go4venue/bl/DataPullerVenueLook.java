@@ -1,5 +1,6 @@
 package com.go4venue.bl;
 
+import java.sql.SQLException;
 import java.util.Arrays;
 import java.util.List;
 
@@ -37,7 +38,12 @@ public void getDataFromUrl(String url,WebDriver driver){
 			WebElement elem = driver.findElement(By.xpath(topLevelXpath+i+"]/div[2]/div[1]/div[1]/h2/a"));
 			String query = SQLRaw2DB.insetURL;
 			List<String> params = Arrays.asList(elem.getAttribute("href"));
-			con.insertData(query, params, false);
+			try {
+				con.insertData(query, params, false);
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 			//System.out.println(elem.getAttribute("href"));
 		}
 }

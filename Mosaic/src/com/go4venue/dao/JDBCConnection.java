@@ -74,7 +74,7 @@ private static Connection con;
 		return rs;
 	}
 	
-	public boolean insertData(String query,List<String> params,boolean isUpdate){
+	public boolean insertData(String query,List<String> params,boolean isUpdate) throws SQLException{
 		PreparedStatement pstmt  = null;
 		PreparedStatement pstmt1 = null;
 		
@@ -100,13 +100,14 @@ private static Connection con;
 			}
 		} catch (SQLException e) {
 			flag = false;
-			e.printStackTrace();
+			//e.printStackTrace();
+			throw e;
 		}
 		return flag;
 	}
 	
 	
-	public boolean upsertData(String query,List<String> params){
+	public boolean upsertData(String query,List<String> params) throws SQLException{
 		PreparedStatement pstmt  = null;
 		boolean flag = false;
 		
@@ -128,6 +129,7 @@ private static Connection con;
 		} catch (SQLException e) {
 			flag = false;
 			e.printStackTrace();
+			throw e;
 		}finally{
 			/*try {
 				//pstmt.close();
