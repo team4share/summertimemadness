@@ -47,7 +47,8 @@ public class VenueDataBuilder {
 				conn.upsertData(SQLRaw2DB.updateUrlListFlag, Arrays.asList(rs.getString("url")));
 				params.clear();
 				}catch(Exception e){
-					e.getMessage();
+					e.printStackTrace();
+					
 				}
 			}
 
@@ -73,55 +74,55 @@ public class VenueDataBuilder {
 
 			String venueCapacity = driver
 					.findElement(
-							By.xpath("/html/body/div[1]/section[1]/div/div[2]/div[1]/div[2]/div[2]"))
+							By.xpath("/html/body/div[2]/section[1]/div/div[2]/div[1]/div[2]/div[2]"))
 					.getText();
 			params.add(venueCapacity);
-			//System.out.println(venueCapacity);
+			System.out.println(venueCapacity);
 
 			String venuePrice = driver
 					.findElement(
-							By.xpath("/html/body/div[1]/section[1]/div/div[2]/div[1]/div[1]/div[2]"))
+							By.xpath("/html/body/div[2]/section[1]/div/div[2]/div[1]/div[1]/div[2]"))
 					.getText();
 			params.add(venuePrice);
-			//System.out.println(venuePrice);
+			System.out.println(venuePrice);
 
-			String contactInfo = driver
-					.findElement(
-							By.xpath("/html/body/header/div/div/nav/div/ul[2]/li[1]/a/span"))
-					.getText();
-			//System.out.println(contactInfo);
-			params.add(contactInfo);
+			// removed the contact info from the page dso give our contact number or get it from google 
+			params.add("");
 			
 			String address = driver.findElement(
-					By.xpath("/html/body/div[1]/section[1]/div/div[1]/h4[1]"))
+					By.xpath("/html/body/div[2]/section[1]/div/div[1]/h4[1]"))
 					.getText();
-			//System.out.println(address);
+			System.out.println(address);
 			params.add(address);
+			
+			// click more button before getting description
+			driver.findElement(By.xpath("/html/body/div[2]/section[4]/div/div/div[2]/div/div[2]/div[1]/div[2]/p/span[2]/a")).click();
 			
 			String about = driver
 					.findElement(
-							By.xpath("/html/body/div[1]/section[4]/div/div/div[2]/div/div[2]/div[1]/div[2]"))
+							By.xpath("/html/body/div[2]/section[4]/div/div/div[2]/div/div[2]/div[1]/div[2]"))
 					.getText();
-			//System.out.println(about);
+			System.out.println(about);
 			params.add(about);
 			params.add(url);
 			String operatingTime = driver
 					.findElement(
-							By.xpath("/html/body/div[1]/section[4]/div/div/div[2]/div/div[2]/div[2]/div[1]/ul/li"))
+							By.xpath("/html/body/div[2]/section[4]/div/div/div[2]/div/div[2]/div[2]/div[1]/ul/li"))
 					.getText();
-			//System.out.println(operatingTime);
+			System.out.println(operatingTime);
 			params.add(operatingTime);
 
 			List<WebElement> rows = driver
 					.findElements(By
 							.cssSelector("html body div#space-detail-page section.gray-bg div.container div.gray-bg div.col-xs-12.col-sm-12.col-md-6 div#contenctscroll.vspace div#about.space-content div.panel.panel-default.panel-white.btn-flat div.panel-body ul.list-inline.space-gdfroccasion"));
-
+			                             // html body div#space-detail-page section.gray-bg div.container div.gray-bg div.col-xs-12.col-sm-12.col-md-6 div#contenctscroll.vspace div#about.space-content div.panel.panel-default.panel-white.btn-flat div.panel-body	
+			
 			StringBuilder ocassions = new StringBuilder();
 			for (int i = 1; i <= rows.size(); i++) {
 				ocassions
 						.append(driver
 								.findElement(
-										By.xpath("/html/body/div[1]/section[4]/div/div/div[2]/div/div[2]/div[3]/div[2]/ul/li["
+										By.xpath("/html/body/div[2]/section[4]/div/div/div[2]/div/div[2]/div[3]/div[2]/ul/li["
 												+ i + "]")).getText()).append(
 								",");
 			}
@@ -131,7 +132,7 @@ public class VenueDataBuilder {
 
 			String cusines = driver
 					.findElement(
-							By.xpath("/html/body/div[1]/section[4]/div/div/div[2]/div/div[2]/div[4]/div[2]"))
+							By.xpath("/html/body/div[2]/section[4]/div/div/div[2]/div/div[2]/div[4]/div[2]"))				
 					.getText();
 
 			//System.out.println(cusines.replaceAll(" ", ","));
@@ -139,7 +140,8 @@ public class VenueDataBuilder {
 			
 			String facilities = driver
 					.findElement(
-							By.xpath("/html/body/div[1]/section[4]/div/div/div[2]/div/div[2]/div[5]/div[2]"))
+							By.xpath("/html/body/div[2]/section[4]/div/div/div[2]/div/div[2]/div[5]/div[2]"))
+							          
 					.getText();
 			// System.out.println(facilities.split(" "));
 
