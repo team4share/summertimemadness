@@ -100,7 +100,7 @@ private static Connection con;
 			}
 		} catch (SQLException e) {
 			flag = false;
-			//e.printStackTrace();
+			e.printStackTrace();
 			throw e;
 		}
 		return flag;
